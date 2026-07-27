@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skill Self-Play：让大模型自己跟自己玩，越玩越强 · AI2091</title>
+  <meta name="description" content="阿里通义千问团队最新论文解读：Skill Self-Play 框架让 LLM 通过技能博弈实现持续自我进化。">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="/" class="logo">AI2091 <span>· 前沿</span></a>
+    <ul class="nav-links">
+      <li><a href="/">首页</a></li>
+      <li><a href="/papers/" class="active">论文解读</a></li>
+      <li><a href="/tools/">AI 工具</a></li>
+      <li><a href="/news/">行业日报</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <article class="article">
+
+    <h1>Skill Self-Play：让大模型自己跟自己玩，越玩越强</h1>
+    <div class="article-meta">
+      📅 2026-07-24 · 🏛️ 阿里通义千问团队 · 🔗 <a href="https://arxiv.org/abs/2607.22529" target="_blank" rel="noopener">arXiv:2607.22529</a>
+      · 💻 <a href="https://github.com/Qwen-Applications/skill-self-play" target="_blank" rel="noopener">开源代码</a>
+    </div>
+
+    <!-- 🧭 一句话背景 -->
+    <h2>🧭 一句话背景</h2>
+    <p>大模型训练正在从"人工标注数据 → 监督微调"转向"自己跟自己交互 → 自我进化"。</p>
+    <p>但现有的自我进化方法有个<strong>两难困境</strong>：</p>
+
+    <table>
+      <tr>
+        <th>方法A：固定环境</th>
+        <th>方法B：自己生成任务</th>
+      </tr>
+      <tr>
+        <td>✅ 反馈准确（对就是对，错就是错）<br>❌ 学的东西很窄，换个场景就不会了</td>
+        <td>✅ 任务花样多，覆盖面广<br>❌ 没人验证对错，学到错误的东西都不知道</td>
+      </tr>
+    </table>
+
+    <p><strong>简单说就是：要么学得准但学得少，要么学得多但学得歪。</strong>这篇论文想解决的就是这个问题。</p>
+
+    <!-- 💡 核心方法 -->
+    <h2>💡 核心方法</h2>
+
+    <h3>先说直觉</h3>
+    <p>想象一下你教一个徒弟：你不是让他只做一种题（太窄），也不是让他自己瞎出题瞎做（没人判对错）。而是：<strong>给他一个工具箱（技能库），今天抽一个技能让他练，练完你判对错，然后更新工具箱。明天再抽，再练，再判。</strong>这么循环下去，他会的技能越来越多，每个技能也越来越精通。</p>
+    <p>Skill Self-Play 就是这个思路。</p>
+
+    <h3>再讲技术细节</h3>
+    <p>论文设计了一个<strong>三方博弈框架</strong>，三个角色在强化学习循环里不断进化：</p>
+
+    <pre><code>Skill Controller ──①采样技能──→ Proposer ──②出题──→ Solver ──③执行反馈──→ Skill Controller
+  （管理技能库）        （生成任务）        （解题）          （更新技能库）</code></pre>
+
+    <p><strong>核心流程：</strong></p>
+    <ol>
+      <li>技能控制器从当前技能库里采样一个技能（比如"调用计算器 API"）</li>
+      <li>提议者根据这个技能生成一个具体任务（比如"计算 (3.14 × 2.718) + √2"）</li>
+      <li>解题者尝试完成任务，给出解答</li>
+      <li>技能控制器根据执行结果更新技能库：解题成功→标记掌握，下次更难；解题失败→继续练</li>
+      <li>循环，持续自我进化</li>
+    </ol>
+
+    <h3>关键实验结果</h3>
+
+    <table>
+      <tr>
+        <th>设置</th>
+        <th>效果</th>
+      </tr>
+      <tr>
+        <td>强模型 + Skill-SP</td>
+        <td>✅ 性能天花板被持续推高</td>
+      </tr>
+      <tr>
+        <td>弱模型/未对齐模型 + Skill-SP</td>
+        <td>✅ 出现惊人的逆转效果，原本不行的模型变行了</td>
+      </tr>
+    </table>
+
+    <p>这意味着这套方法不仅是"好上加好"，还能把"不好的"变好。</p>
+
+    <!-- 🔍 我的分析 -->
+    <h2>🔍 我的分析</h2>
+
+    <h3>方法优缺点</h3>
+
+    <table>
+      <tr>
+        <th>优点</th>
+        <th>缺点/局限性</th>
+      </tr>
+      <tr>
+        <td>解决了"任务多样性 vs 验证可靠性"的根本矛盾，思路很巧妙</td>
+        <td>三个组件是同一个模型，可能有"自我强化偏见"</td>
+      </tr>
+      <tr>
+        <td>技能库动态扩展，模型不会进化到某个点就饱和</td>
+        <td>对初始技能库质量敏感，选不好可能跑偏</td>
+      </tr>
+      <tr>
+        <td>对弱模型有显著的"拉起"效果</td>
+        <td>计算开销比单轮训练大得多</td>
+      </tr>
+    </table>
+
+    <h3>跟同类工作的对比</h3>
+
+    <table>
+      <tr>
+        <th>方法</th>
+        <th>验证方式</th>
+        <th>任务多样性</th>
+      </tr>
+      <tr>
+        <td>固定环境（RLHF）</td>
+        <td>✅ 准确</td>
+        <td>❌ 窄</td>
+      </tr>
+      <tr>
+        <td>自我生成（Self-Instruct）</td>
+        <td>❌ 不可靠</td>
+        <td>✅ 广</td>
+      </tr>
+      <tr>
+        <td><strong>Skill Self-Play（本文）</strong></td>
+        <td><strong>✅ 技能级验证</strong></td>
+        <td><strong>✅ 动态路由保证</strong></td>
+      </tr>
+    </table>
+
+    <p><strong>关键创新在于：</strong>技能粒度是"任务多样性"和"验证可靠性"之间的最优折中点。</p>
+
+    <h3>实际落地可行性</h3>
+    <ul>
+      <li>✅ 开源代码已发布：<a href="https://github.com/Qwen-Applications/skill-self-play" target="_blank" rel="noopener">GitHub</a></li>
+      <li>✅ 基于 Qwen 生态，对国内开发者友好</li>
+      <li>✅ 推理成本可控：进化完成后，推理时不需要跑完整的三方博弈</li>
+      <li>⚠️ 但训练阶段计算开销不小，适合有算力的团队</li>
+    </ul>
+
+    <!-- 🤔 我的思考 -->
+    <h2>🤔 我的思考</h2>
+
+    <h3>这个方向接下来怎么走？</h3>
+    <p>这篇论文最有意思的地方是<strong>把"技能"作为 LLM 进化的原子单元</strong>。这让我想到两个方向：</p>
+    <ul>
+      <li><strong>技能迁移：</strong>A 模型进化出的技能库能否直接迁移给 B 模型？那"模型进化"就变成了"技能库继承"</li>
+      <li><strong>多模型协作进化：</strong>用更强的模型当提议者出难题，会不会进化更快？</li>
+    </ul>
+
+    <h3>对从业者的启示</h3>
+    <ul>
+      <li>提供了一套<strong>不需要人工标注数据就能持续提升模型能力</strong>的范式</li>
+      <li>初始技能库的设计是关键瓶颈，选什么技能可能比算法本身更影响效果</li>
+      <li>中小团队可用强模型当"教练"、小模型当"学生"，让小模型在自博弈中成长</li>
+    </ul>
+
+    <h3>开放式问题</h3>
+    <blockquote>
+      三个组件是同一个模型，会不会出现"自己出题自己考自己"的作弊行为？比如模型故意出简单的题来刷高分？如果会，怎么防止？
+    </blockquote>
+
+    <!-- 📎 参考信息 -->
+    <h2>📎 参考信息</h2>
+    <ul>
+      <li><strong>📄 论文标题：</strong>Skill Self-Play: Pushing the Frontier of LLM Capability with Co-Evolving Skills</li>
+      <li><strong>👥 作者：</strong>Siyuan Huang, Pengyu Cheng, Haotian Liu, Tao Chen 等（阿里通义千问团队）</li>
+      <li><strong>📅 发布时间：</strong>2026-07-24</li>
+      <li><strong>🔗 原文链接：</strong><a href="https://arxiv.org/abs/2607.22529" target="_blank" rel="noopener">https://arxiv.org/abs/2607.22529</a></li>
+      <li><strong>💻 开源代码：</strong><a href="https://github.com/Qwen-Applications/skill-self-play" target="_blank" rel="noopener">https://github.com/Qwen-Applications/skill-self-play</a></li>
+    </ul>
+
+  </article>
+</div>
+
+<footer class="footer">
+  <p>© 2026 <a href="https://www.ai2091.com">AI2091.com</a> · 站在 AI 前沿，看见 2091</p>
+  <p style="margin-top: 4px;">内容仅供学习参考，不构成任何投资建议</p>
+</footer>
+
+<script src="/js/stats.js"></script>
+</body>
+</html>

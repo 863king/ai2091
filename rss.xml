@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AI2091 · AI 前沿资讯与论文解读</title>
+    <link>https://www.ai2091.com/</link>
+    <description>每日 AI 论文深度解读、行业资讯、工具推荐。站在 AI 前沿，看见 2091。</description>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 27 Jul 2026 09:00:00 +0800</lastBuildDate>
+    <atom:link href="https://www.ai2091.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Skill Self-Play：让大模型自己跟自己玩，越玩越强</title>
+      <link>https://www.ai2091.com/papers/skill-self-play.html</link>
+      <guid isPermaLink="true">https://www.ai2091.com/papers/skill-self-play.html</guid>
+      <description><![CDATA[阿里通义千问团队提出 Skill-SP 框架，让 LLM 通过三方博弈实现持续自我进化，解决了"任务多样性 vs 验证可靠性"的根本矛盾。]]></description>
+      <pubDate>Thu, 24 Jul 2026 09:00:00 +0800</pubDate>
+      <category>论文解读</category>
+    </item>
+    <item>
+      <title>AI 行业日报 · 2026年07月27日</title>
+      <link>https://www.ai2091.com/news/2026-07-27.html</link>
+      <guid isPermaLink="true">https://www.ai2091.com/news/2026-07-27.html</guid>
+      <description><![CDATA[每日早 9 点更新 · 覆盖大模型、融资、论文、政策、应用、开源六大板块]]></description>
+      <pubDate>Mon, 27 Jul 2026 09:00:00 +0800</pubDate>
+      <category>行业日报</category>
+    </item>
+  </channel>
+</rss>

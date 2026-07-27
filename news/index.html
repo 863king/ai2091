@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 行业日报 · AI2091</title>
+  <meta name="description" content="AI2091 每日 AI 行业早报列表 - 覆盖大模型、融资、论文、政策、应用、开源六大板块。">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📰</text></svg>">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="/" class="logo">AI2091 <span>· 前沿</span></a>
+    <ul class="nav-links">
+      <li><a href="/">首页</a></li>
+      <li><a href="/papers/">论文解读</a></li>
+      <li><a href="/tools/">AI 工具</a></li>
+      <li><a href="/news/" class="active">行业日报</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container news-container">
+  <header class="news-header">
+    <h1>AI 行业日报</h1>
+    <p class="subtitle">每日早 9 点更新 · 覆盖 6 大板块 · 仅保留权威来源 · 去重去噪</p>
+  </header>
+
+  <div id="news-list" class="news-date-list">
+    <!-- 由 JS 动态渲染，或由每日脚本静态生成 -->
+    <div class="loading">正在加载日报列表...</div>
+  </div>
+
+  <div class="rss-link" style="margin-top: 40px; text-align: center;">
+    <a href="/rss.xml" target="_blank">📡 订阅 RSS</a> · 
+    <a href="/sitemap.xml" target="_blank">🗺️ Sitemap</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>© 2026 <a href="https://www.ai2091.com">AI2091.com</a> · 站在 AI 前沿，看见 2091</p>
+</footer>
+
+<script>
+// 静态列表数据（由每日脚本更新此文件）
+const newsList = [
+  {
+    date: "2026-07-27",
+    dateCN: "2026年07月27日",
+    weekday: "周一",
+    categories: 6,
+    items: 18,
+    url: "/news/2026-07-27.html"
+  }
+];
+
+function renderNewsList() {
+  const container = document.getElementById('news-list');
+  if (newsList.length === 0) {
+    container.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:60px 0;">暂无日报，敬请期待</p>';
+    return;
+  }
+
+  container.innerHTML = newsList.map(item => `
+    <article class="date-card" onclick="location.href='${item.url}'">
+      <div class="date-badge">${item.dateCN} ${item.weekday}</div>
+      <div class="date-stats">
+        <span>📂 ${item.categories} 个板块</span>
+        <span>📰 ${item.items} 条资讯</span>
+      </div>
+      <a href="${item.url}" class="read-link">阅读完整版 →</a>
+    </article>
+  `).join('');
+}
+
+renderNewsList();
+</script>
+
+<style>
+.news-container {
+  max-width: 800px;
+}
+.news-header {
+  text-align: center;
+  padding: 40px 0 30px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 30px;
+}
+.news-header h1 {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+.date-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.date-card:hover {
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--accent);
+}
+.date-badge {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+.date-stats {
+  display: flex;
+  gap: 20px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+.read-link {
+  display: inline-block;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 14px;
+}
+.read-link:hover {
+  color: #67e8f9;
+}
+.rss-link {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+.rss-link a {
+  color: var(--text-secondary);
+}
+.rss-link a:hover {
+  color: var(--accent);
+}
+</style>
+</script>

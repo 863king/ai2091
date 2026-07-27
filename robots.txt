@@ -1,0 +1,14 @@
+# AI2091.com - robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.ai2091.com/sitemap.xml
+
+# 禁止抓取的路径
+Disallow: /css/
+Disallow: /images/
+Disallow: /404.html
+
+# 爬虫延迟（秒）
+Crawl-delay: 10

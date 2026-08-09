@@ -95,7 +95,7 @@ def fetch_v2ex():
     return topics[:8]
 
 def fetch_bilibili():
-    """B站热门视频"""
+    """B站热门视频（用 popular API，不过滤）"""
     out, err, code = run(["curl", "-s", "-m", "10",
         "https://api.bilibili.com/x/web-interface/popular",
         "-H", "User-Agent: Mozilla/5.0",
@@ -109,7 +109,9 @@ def fetch_bilibili():
             title = item.get("title", "")
             author = item.get("owner", {}).get("name", "")
             bvid = item.get("bvid", "")
-            items.append({"title": title, "author": author, "url": f"https://www.bilibili.com/video/{bvid}"})
+            if title and bvid:
+                items.append({"title": title, "author": author, 
+                    "url": f"https://www.bilibili.com/video/{bvid}"})
         return items
     except:
         return []
@@ -163,19 +165,19 @@ def generate_html(data):
   </div>
 </div>
 <style>
-.reach-module { margin: 2rem 0; }
-.reach-module h2 { font-size: 1.5rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-.reach-module .time { font-size: 0.8rem; color: #999; font-weight: normal; }
-.reach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1rem; }
-.reach-card { background: #f8f9fa; border-radius: 10px; padding: 1rem; border: 1px solid #eee; }
-.reach-card h3 { margin: 0 0 0.5rem 0; font-size: 0.95rem; color: #333; }
+.reach-module { margin: 2.5rem 0; padding: 1.5rem; background: var(--bg-card); border-radius: 16px; border: 1px solid var(--border); }
+.reach-module h2 { font-size: 1.4rem; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; color: var(--text); }
+.reach-module .time { font-size: 0.8rem; color: var(--text-muted); font-weight: normal; }
+.reach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.2rem; }
+.reach-card { background: var(--bg); border-radius: 12px; padding: 1.2rem; border: 1px solid var(--border); }
+.reach-card h3 { margin: 0 0 0.8rem 0; font-size: 0.95rem; color: var(--accent); }
 .reach-card ul { list-style: none; padding: 0; margin: 0; }
-.reach-card li { padding: 0.35rem 0; border-bottom: 1px solid #eee; font-size: 0.85rem; line-height: 1.4; }
+.reach-card li { padding: 0.5rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; line-height: 1.5; }
 .reach-card li:last-child { border-bottom: none; }
-.reach-card a { color: #1a73e8; text-decoration: none; display: block; }
-.reach-card a:hover { text-decoration: underline; }
-.tag { display: inline-block; background: #e9ecef; padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.75rem; }
-.meta { color: #999; font-size: 0.75rem; }
+.reach-card a { color: var(--text); text-decoration: none; display: block; transition: color 0.2s; }
+.reach-card a:hover { color: var(--accent); }
+.tag { display: inline-block; background: var(--bg-card); padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.75rem; color: var(--text-muted); }
+.meta { color: var(--text-muted); font-size: 0.75rem; }
 </style>
 """
     return html

@@ -1,14 +1,8 @@
 #!/usr/bin/env python3
-"""
-AI2091 Daily Content Engine v3
-每天自动更新网站内容：社区热议 + 行业新闻 + 论文速递
-"""
-
-import os, sys, json, re, subprocess
+"""AI2091 Daily Content Engine - 社区热议板块"""
+import os, sys, json, re, subprocess, urllib.request, xml.etree.ElementTree as ET
 from datetime import datetime
 from pathlib import Path
-import urllib.request
-import xml.etree.ElementTree as ET
 
 SITE_DIR = Path("/var/www/ai2091")
 NEWS_DIR = SITE_DIR / "news"
@@ -23,12 +17,10 @@ def run(cmd, timeout=20):
         return "", "TIMEOUT", -1
 
 def fetch_rss(url, limit=8):
-    """Fetch RSS feed and extract titles + links"""
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
     try:
         resp = urllib.request.urlopen(req, timeout=15)
         root = ET.fromstring(resp.read())
-        # Detect Atom vs RSS
         is_atom = root.tag.endswith("feed")
         entries = root.iter("{http://www.w3.org/2005/Atom}entry") if is_atom else root.iter("item")
         items = []
@@ -38,28 +30,19 @@ def fetch_rss(url, limit=8):
             link = ""
             link_el = entry.find("link")
             if link_el is not None:
-                if is_atom:
-                    link = link_el.get("href", "")
-                else:
-                    link = link_el.text or ""
+                link = link_el.get("href", "") if is_atom else (link_el.text or "")
             pub_el = entry.find("pubDate") or entry.find("published") or entry.find("updated")
             pub_date = pub_el.text[:10] if pub_el is not None and pub_el.text else ""
             if title and link:
                 items.append({"title": title.strip(), "link": link, "date": pub_date})
         return items[:limit]
-    except Exception as e:
+    except:
         return []
 
-def fetch_arxiv_ai():
-    """Fetch latest AI papers from arXiv"""
-    return fetch_rss("http://export.arxiv.org/rss/cs.AI", 6)
-
 def fetch_techcrunch():
-    """Fetch TechCrunch via RSS (not Jina)"""
     return fetch_rss("https://techcrunch.com/category/artificial-intelligence/feed/", 6)
 
 def fetch_hackernews():
-    """Fetch Hacker News top stories"""
     req = urllib.request.Request("https://hacker-news.firebaseio.com/v0/topstories.json",
         headers={"User-Agent": "Mozilla/5.0"})
     try:
@@ -67,13 +50,12 @@ def fetch_hackernews():
         ids = json.loads(resp.read())[:10]
         items = []
         for sid in ids:
-            req2 = urllib.request.Request(f"https://hacker-news.firebaseio.com/v0/item/{sid}.json",
+            r2 = urllib.request.Request(f"https://hacker-news.firebaseio.com/v0/item/{sid}.json",
                 headers={"User-Agent": "Mozilla/5.0"})
-            resp2 = urllib.request.urlopen(req2, timeout=10)
-            data = json.loads(resp2.read())
-            title = data.get("title", "")
-            url = data.get("url", f"https://news.ycombinator.com/item?id={sid}")
-            score = data.get("score", 0)
+            d = json.loads(urllib.request.urlopen(r2, timeout=10).read())
+            title = d.get("title", "")
+            url = d.get("url", f"https://news.ycombinator.com/item?id={sid}")
+            score = d.get("score", 0)
             if title:
                 items.append({"title": title, "link": url, "score": score})
         return items[:6]
@@ -81,7 +63,6 @@ def fetch_hackernews():
         return []
 
 def fetch_v2ex():
-    """V2EX hot topics via Jina Reader"""
     out, err, code = run(["curl", "-s", "-m", "15",
         "https://r.jina.ai/https://www.v2ex.com/?tab=hot",
         "-H", "User-Agent: Mozilla/5.0"])
@@ -94,101 +75,62 @@ def fetch_v2ex():
             topics.append({"title": m.group(1), "url": f"https://www.v2ex.com/t/{m.group(2)}"})
     return topics[:8]
 
-def fetch_bilibili():
-    """B站热门视频（用 popular API，不过滤）"""
-    out, err, code = run(["curl", "-s", "-m", "10",
-        "https://api.bilibili.com/x/web-interface/popular",
-        "-H", "User-Agent: Mozilla/5.0",
-        "-H", "Referer: https://www.bilibili.com"])
-    if code != 0:
-        return []
-    try:
-        data = json.loads(out)
-        items = []
-        for item in data.get("data", {}).get("list", [])[:8]:
-            title = item.get("title", "")
-            author = item.get("owner", {}).get("name", "")
-            bvid = item.get("bvid", "")
-            if title and bvid:
-                items.append({"title": title, "author": author, 
-                    "url": f"https://www.bilibili.com/video/{bvid}"})
-        return items
-    except:
-        return []
-
 def generate_html(data):
-    """Generate HTML with proper content sections"""
+    """Generate HTML matching the site's dark theme style"""
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
-    today = datetime.now().strftime("%Y-%m-%d")
     
-    html = f"""<!-- Agent Reach 实时采集 - 更新于 {now} -->
-<div class="reach-module">
-  <h2>🌐 今日社区热议 <span class="time">更新于 {now}</span></h2>
-  <div class="reach-grid">
+    html = f"""<!-- 社区热议 - Agent Reach 实时采集 更新于 {now} -->
+  <section style="margin-top: 48px;">
+    <div class="section-title">
+      🌐 社区热议
+      <span class="section-subtitle">实时采集 · 更新于 {now}</span>
+    </div>
+    <div class="reach-grid">
 """
-    # TechCrunch AI News
     if data.get("tc"):
-        html += '<div class="reach-card"><h3>📰 AI 行业新闻</h3><ul>'
+        html += '<div class="reach-card"><div class="reach-card-header"><span class="reach-icon">📰</span><h3>AI 行业新闻</h3></div><div class="reach-list">'
         for item in data["tc"]:
-            html += f'<li><a href="{item["link"]}" target="_blank">{item["title"]}</a></li>'
-        html += '</ul></div>'
+            html += f'<a href="{item["link"]}" class="reach-item" target="_blank"><span class="reach-title">{item["title"]}</span></a>'
+        html += '</div></div>'
 
-    # Hacker News
     if data.get("hn"):
-        html += '<div class="reach-card"><h3>🔥 Hacker News 热门</h3><ul>'
+        html += '<div class="reach-card"><div class="reach-card-header"><span class="reach-icon">🔥</span><h3>Hacker News 热门</h3></div><div class="reach-list">'
         for item in data["hn"]:
-            html += f'<li><a href="{item["link"]}" target="_blank">{item["title"]}</a> <span class="meta">▲{item["score"]}</span></li>'
-        html += '</ul></div>'
+            html += f'<a href="{item["link"]}" class="reach-item" target="_blank"><span class="reach-title">{item["title"]}</span><span class="reach-score">▲{item["score"]}</span></a>'
+        html += '</div></div>'
 
-    # arXiv AI Papers
-    if data.get("arxiv"):
-        html += '<div class="reach-card"><h3>📄 arXiv 最新论文</h3><ul>'
-        for item in data["arxiv"]:
-            html += f'<li><a href="{item["link"]}" target="_blank">{item["title"]}</a> <span class="meta">{item["date"]}</span></li>'
-        html += '</ul></div>'
-
-    # V2EX
     if data.get("v2ex"):
-        html += '<div class="reach-card"><h3>💬 V2EX 技术讨论</h3><ul>'
+        html += '<div class="reach-card"><div class="reach-card-header"><span class="reach-icon">💬</span><h3>V2EX 技术讨论</h3></div><div class="reach-list">'
         for item in data["v2ex"]:
-            html += f'<li><a href="{item["url"]}" target="_blank">{item["title"]}</a></li>'
-        html += '</ul></div>'
-
-    # Bilibili
-    if data.get("bili"):
-        html += '<div class="reach-card"><h3>📺 B站推荐</h3><ul>'
-        for item in data["bili"]:
-            html += f'<li><a href="{item["url"]}" target="_blank">{item["title"]}</a> <span class="tag">{item["author"]}</span></li>'
-        html += '</ul></div>'
+            html += f'<a href="{item["url"]}" class="reach-item" target="_blank"><span class="reach-title">{item["title"]}</span></a>'
+        html += '</div></div>'
 
     html += """
-  </div>
-</div>
+    </div>
+  </section>
+
 <style>
-.reach-module { margin: 2.5rem 0; padding: 1.5rem; background: var(--bg-card); border-radius: 16px; border: 1px solid var(--border); }
-.reach-module h2 { font-size: 1.4rem; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; color: var(--text); }
-.reach-module .time { font-size: 0.8rem; color: var(--text-muted); font-weight: normal; }
-.reach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.2rem; }
-.reach-card { background: var(--bg); border-radius: 12px; padding: 1.2rem; border: 1px solid var(--border); }
-.reach-card h3 { margin: 0 0 0.8rem 0; font-size: 0.95rem; color: var(--accent); }
-.reach-card ul { list-style: none; padding: 0; margin: 0; }
-.reach-card li { padding: 0.5rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; line-height: 1.5; }
-.reach-card li:last-child { border-bottom: none; }
-.reach-card a { color: var(--text); text-decoration: none; display: block; transition: color 0.2s; }
-.reach-card a:hover { color: var(--accent); }
-.tag { display: inline-block; background: var(--bg-card); padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.75rem; color: var(--text-muted); }
-.meta { color: var(--text-muted); font-size: 0.75rem; }
+.reach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.reach-card { background: var(--bg-card); border-radius: 12px; padding: 20px; border: 1px solid var(--border); }
+.reach-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.reach-icon { font-size: 18px; }
+.reach-card h3 { margin: 0; font-size: 15px; font-weight: 600; color: var(--text); }
+.reach-list { display: flex; flex-direction: column; gap: 2px; }
+.reach-item { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;
+  padding: 8px 10px; border-radius: 8px; transition: background 0.2s; text-decoration: none; }
+.reach-item:hover { background: var(--bg-card-hover); }
+.reach-title { font-size: 13px; line-height: 1.5; color: var(--text-secondary); flex: 1; }
+.reach-item:hover .reach-title { color: var(--accent); }
+.reach-score { font-size: 11px; color: var(--text-muted); white-space: nowrap; margin-top: 1px; }
+.section-subtitle { font-size: 13px; color: var(--text-muted); font-weight: normal; margin-left: 8px; }
 </style>
 """
     return html
 
 def inject_to_index(html):
-    """Inject reach content into the homepage"""
     with open(SITE_DIR / "index.html") as f:
         content = f.read()
-    
-    # Remove old reach content if any
-    old_start = content.find("<!-- Agent Reach 实时采集")
+    old_start = content.find("<!-- 社区热议 - Agent Reach")
     old_end = content.find("</style>", old_start) + len("</style>") if old_start > -1 else -1
     if old_start > -1 and old_end > -1:
         before = content[:old_start]
@@ -197,50 +139,25 @@ def inject_to_index(html):
         last_section = content.rfind("</section>")
         before = content[:last_section + len("</section>")]
         after = content[last_section + len("</section>"):]
-    
-    new_content = before + "\n" + html + "\n" + after
     with open(SITE_DIR / "index.html", "w") as f:
-        f.write(new_content)
+        f.write(before + "\n" + html + "\n" + after)
     return True
 
 def main():
-    print(f"AI2091 Content Engine v3 - {datetime.now().isoformat()}")
-    print("=" * 50)
+    print(f"AI2091 Content Engine - {datetime.now().isoformat()}")
+    print("=" * 40)
+    print("📰 TechCrunch...", end=""); tc = fetch_techcrunch(); print(f" {len(tc)}")
+    print("🔥 HackerNews...", end=""); hn = fetch_hackernews(); print(f" {len(hn)}")
+    print("💬 V2EX...", end=""); v2ex = fetch_v2ex(); print(f" {len(v2ex)}")
     
-    print("📰 Fetching TechCrunch AI news...")
-    tc = fetch_techcrunch()
-    print(f"   → {len(tc)} articles")
-    
-    print("🔥 Fetching Hacker News...")
-    hn = fetch_hackernews()
-    print(f"   → {len(hn)} stories")
-    
-    print("📄 Fetching arXiv AI papers...")
-    arxiv = fetch_arxiv_ai()
-    print(f"   → {len(arxiv)} papers")
-    
-    print("💬 Fetching V2EX...")
-    v2ex = fetch_v2ex()
-    print(f"   → {len(v2ex)} topics")
-    
-    print("📺 Fetching Bilibili...")
-    bili = fetch_bilibili()
-    print(f"   → {len(bili)} videos")
-    
-    data = {"tc": tc, "hn": hn, "arxiv": arxiv, "v2ex": v2ex, "bili": bili}
-    
-    # Save cache
+    data = {"tc": tc, "hn": hn, "v2ex": v2ex}
     with open(CACHE_DIR / "latest.json", "w") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-    
     html = generate_html(data)
     with open(CACHE_DIR / "latest.html", "w") as f:
         f.write(html)
-    
     inject_to_index(html)
-    print(f"\n✅ Injected into index.html")
-    print("=" * 50)
-    print("Done!")
+    print("✅ 注入首页完成")
 
 if __name__ == "__main__":
     main()

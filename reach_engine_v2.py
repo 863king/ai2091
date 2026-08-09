@@ -7,7 +7,7 @@ import os, sys, json, subprocess, re
 from datetime import datetime
 from pathlib import Path
 
-SITE_DIR = Path("/home/ubuntu/ai2091")
+SITE_DIR = Path("/var/www/ai2091")
 NEWS_DIR = SITE_DIR / "news"
 VENV_PYTHON = os.path.expanduser("~/.agent-reach-venv/bin/python3")
 

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>二维码生成 · 工具箱</title>
+  <meta name="description" content="免费在线二维码生成器，支持文本/链接/联系人/WiFi/邮件/短信/地理位置，可自定义颜色、Logo、纠错级别、尺寸。免费、无广告、纯前端离线可用。">
+  <meta name="keywords" content="二维码生成,QR码生成,二维码制作,在线二维码,带Logo二维码,批量二维码">
+  <link rel="canonical" href="https://tool.example.com/tools/qrcode-generator.html">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">跳转到主内容</a>
+  
+  <header class="header" role="banner">
+    <div class="header-inner container">
+      <a href="/" class="logo" aria-label="工具箱首页"><svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="2"/><path d="M9 9h6v6H9z" fill="currentColor"/><path d="M15 15h-6v-6h6z" fill="currentColor"/></svg><span class="logo-text">工具箱</span></a>
+      <nav class="nav-main" role="navigation" aria-label="主导航"><ul class="nav-list"><li><a href="/" class="nav-link">首页</a></li><li><a href="/tools.html" class="nav-link">全部工具</a></li><li><a href="/about.html" class="nav-link">关于</a></li></ul></nav>
+      <div class="header-actions"><div class="search-box" role="search" aria-label="全站搜索"><svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2"/></svg><input type="search" id="global-search" class="search-input" placeholder="搜索工具..." autocomplete="off" aria-label="搜索工具"><div class="search-results" id="search-results" role="listbox" aria-label="搜索结果"></div></div><button class="theme-toggle" id="theme-toggle" aria-label="切换深色/浅色模式" title="切换主题"><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><g stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></g></svg><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/></svg></button></div>
+    </div>
+  </header>
+
+  <main id="main-content" role="main">
+    <div class="tool-page">
+      <header class="tool-header"><nav class="tool-breadcrumb" aria-label="面包屑"><a href="/">首页</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg><a href="/tools.html">全部工具</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg><a href="/tools.html?cat=dev">开发工具</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg><span>二维码生成</span></nav><h1 class="tool-title">二维码生成</h1><p class="tool-description">文本/链接/联系人/WiFi/邮件/短信/地理位置，自定义颜色、Logo、纠错级别、尺寸</p></header>
+      
+      <div class="tool-content">
+        <section class="tool-main">
+          <div class="tool-panel"><h3 class="panel-title">二维码生成</h3>
+            <div class="form-group"><label class="form-label">内容类型</label><select id="qr-type" class="form-select" onchange="toggleQrFields()"><option value="text">纯文本</option><option value="url">网址链接</option><option value="email">电子邮件</option><option value="phone">电话号码</option><option value="sms">短信</option><option value="wifi">WiFi 配置</option><option value="vcard">联系人</option><option value="geo">地理位置</option></select></div>
+            
+            <div id="qr-text" class="qr-field"><div class="form-group"><label class="form-label">内容 <span class="required">*</span></label><textarea id="qr-content" class="form-textarea" placeholder="输入要生成二维码的内容..." rows="4"></textarea></div></div>
+            <div id="qr-url" class="qr-field" style="display:none;"><div class="form-group"><label class="form-label">网址 <span class="required">*</span></label><input type="url" id="qr-url-input" class="form-input" placeholder="https://example.com"></div></div>
+            <div id="qr-email" class="qr-field" style="display:none;"><div class="form-group"><label class="form-label">邮箱 <span class="required">*</span></label><input type="email" id="qr-email-to" class="form-input" placeholder="example@domain.com"></div><div class="form-group"><label class="form-label">主题</label><input type="text" id="qr-email-subject" class="form-input" placeholder="主题"></div><div class="form-group"><label class="form-label">正文</label><textarea id="qr-email-body" class="form-textarea" rows="3" placeholder="邮件内容"></textarea></div></div>
+            <div id="qr-phone" class="qr-field" style="display:none;"><div class="form-group"><label class="form-label">电话号码 <span class="required">*</span></label><input type="tel" id="qr-phone-input" class="form-input" placeholder="13800138000"></div></div>
+            <div id="qr-sms" class="qr-field" style="display:none;"><div class="form-group"><label class="form-label">手机号 <span class="required">*</span></label><input type="tel" id="qr-sms-phone" class="form-input" placeholder="13800138000"></div><div class="form-group"><label class="form-label">内容</label><textarea id="qr-sms-body" class="form-textarea" rows="2" placeholder="短信内容"></textarea></div></div>
+            <div id="qr-wifi" class="qr-field" style="display:none;"><div class="form-group"><label class="form-label">网络名称 (SSID) <span class="required">*</span></label><input type="text" id="qr-wifi-ssid" class="form-input" placeholder="MyWiFi"></div><div class="form-group"><label class="form-label">加密类型</label><select id="qr-wifi-enc" class="form-select"><option value="WPA">WPA/WPA2</option><option value="WEP">WEP</option><option value="nopass">无加密</option></select></div><div class="form-group"><label class="form-label">密码</label><input type="text" id="qr-wifi-pass" class="form-input" placeholder="密码（无加密可留空）"></div><div class="form-group"><label class="form-label"><input type="checkbox" id="qr-wifi-hidden"> 隐藏网络</label></div></div>
+            <div id="qr-vcard" class="qr-field" style="display:none;"><div class="form-group"><label class="form-label">姓名 <span class="required">*</span></label><input type="text" id="qr-vcard-name" class="form-input" placeholder="张三"></div><div class="form-group"><label class="form-label">电话</label><input type="tel" id="qr-vcard-phone" class="form-input" placeholder="13800138000"></div><div class="form-group"><label class="form-label">邮箱</label><input type="email" id="qr-vcard-email" class="form-input" placeholder="zhangsan@example.com"></div><div class="form-group"><label class="form-label">公司</label><input type="text" id="qr-vcard-org" class="form-input" placeholder="公司名称"></div><div class="form-group"><label class="form-label">职位</label><input type="text" id="qr-vcard-title" class="form-input" placeholder="职位"></div><div class="form-group"><label class="form-label">地址</label><textarea id="qr-vcard-addr" class="form-textarea" rows="2" placeholder="公司地址"></textarea></div></div>
+            <div id="qr-geo" class="qr-field" style="display:none;"><div class="form-group"><label class="form-label">纬度 <span class="required">*</span></label><input type="number" id="qr-geo-lat" class="form-input" placeholder="39.9042" step="any"></div><div class="form-group"><label class="form-label">经度 <span class="required">*</span></label><input type="number" id="qr-geo-lng" class="form-input" placeholder="116.4074" step="any"></div><div class="form-group"><label class="form-label">查询字符串</label><input type="text" id="qr-geo-query" class="form-input" placeholder="北京市"></div></div>
+            
+            <div class="form-group"><label class="form-label">二维码设置</label>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:12px;">
+                <div class="form-group"><label class="form-label">尺寸 (px)</label><input type="number" id="qr-size" class="form-input" value="256" min="64" max="1024" step="32"></div>
+                <div class="form-group"><label class="form-label">纠错级别</label><select id="qr-error" class="form-select"><option value="L">L (7%)</option><option value="M" selected>M (15%)</option><option value="Q">Q (25%)</option><option value="H">H (30%)</option></select></div>
+                <div class="form-group"><label class="form-label">前景色</label><input type="color" id="qr-fg" class="form-input" value="#000000" style="height:44px;padding:4px;"></div>
+                <div class="form-group"><label class="form-label">背景色</label><input type="color" id="qr-bg" class="form-input" value="#ffffff" style="height:44px;padding:4px;"></div>
+                <div class="form-group"><label class="form-label">边距 (模块数)</label><input type="number" id="qr-margin" class="form-input" value="4" min="0" max="20" step="1"></div>
+              </div>
+            </div>
+            
+            <div class="form-group"><label class="form-label">Logo (可选)</label>
+              <input type="file" id="qr-logo" class="form-input" accept="image/*" style="padding:8px;">
+              <div style="display:flex;gap:12px;margin-top:8px;align-items:center;">
+                <label><input type="checkbox" id="qr-logo-enabled" checked> 嵌入 Logo</label>
+                <label><input type="number" id="qr-logo-size" class="form-input" value="20" min="10" max="40" step="5" style="width:80px;">% 大小</label>
+              </div>
+            </div>
+            
+            <div class="btn-group"><button class="btn btn-primary" onclick="generateQrcode()"><svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>生成二维码</button><button class="btn btn-secondary" onclick="resetQrcode()"><svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h13M3 12h13M3 20h13"/></svg>重置</button></div>
+          </div>
+          
+          <div class="result-panel" id="qr-result" style="display:none;">
+            <div class="result-header"><h4 class="result-title">生成结果</h4><div class="result-actions"><button class="btn btn-ghost btn-small" onclick="downloadQrcode('png')"><svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/></svg>下载 PNG</button><button class="btn btn-ghost btn-small" onclick="downloadQrcode('svg')"><svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/></svg>下载 SVG</button></div></div>
+            <div class="result-content" id="qr-result-content" style="display:flex;justify-content:center;align-items:center;min-height:200px;"></div>
+          </div>
+        </section>
+      </div>
+      
+      <aside class="tool-sidebar"><section class="sidebar-section"><h4 class="sidebar-title">收藏工具</h4><button class="favorite-btn" data-tool-id="qrcode-generator" aria-label="收藏工具"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 0L2 12.67a5.5 5.5 0 0 0 2.41 9.94L12 22l9.64-9.64a5.5 5.5 0 0 0 2.41-9.94L22 4.61a5.5 5.5 0 0 0-1.16-0z"/></svg></button></section></aside>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="/" class="footer-logo" aria-label="工具箱首页"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="2"/><path d="M9 9h6v6H9z" fill="currentColor"/><path d="M15 15h-6v-6h6z" fill="currentColor"/></svg><span class="footer-logo-text">工具箱</span></a><p class="footer-tagline">免费、无广告、纯前端、离线可用的在线实用工具箱</p></div><nav class="footer-links" aria-label="页脚导航"><div class="footer-col"><h4>工具分类</h4><ul><li><a href="/tools.html?cat=life">生活查询</a></li><li><a href="/tools.html?cat=text">文本工具</a></li><li><a href="/tools.html?cat=math">数字计算</a></li><li><a href="/tools.html?cat=dev">开发工具</a></li><li><a href="/tools.html?cat=utility">便民工具</a></li></ul></div><div class="footer-col"><h4>页面</h4><ul><li><a href="/">首页</a></li><li><a href="/tools.html">全部工具</a></li><li><a href="/about.html">关于我们</a></li></ul></div></nav></div><div class="footer-bottom"><p class="copyright">© 2025 <a href="/">工具箱</a> · 站在 AI 前沿，看见 2091</p><p class="disclaimer">纯前端静态站点 · 无后端 · 无数据库 · 无追踪 · 无广告</p></div></div></footer>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true" role="dialog" aria-label="移动端导航"><div class="mobile-nav-overlay" id="mobile-nav-overlay"></div><nav class="mobile-nav-panel" role="navigation" aria-label="移动端菜单"><header class="mobile-nav-header"><a href="/" class="logo">工具箱</a><button class="mobile-nav-close" id="mobile-nav-close" aria-label="关闭菜单"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></header><nav class="mobile-nav-list" aria-label="移动端菜单项"><a href="/" class="mobile-nav-link">首页</a><a href="/tools.html" class="mobile-nav-link">全部工具</a><hr class="mobile-nav-divider"><a href="/tools.html?cat=life" class="mobile-nav-link">🏠 生活查询</a><a href="/tools.html?cat=text" class="mobile-nav-link">文本工具</a><a href="/tools.html?cat=math" class="mobile-nav-link">数字计算</a><a href="/tools.html?cat=dev" class="mobile-nav-link">开发工具</a><a href="/tools.html?cat=utility" class="mobile-nav-link">便民工具</a><hr class="mobile-nav-divider"><a href="/about.html" class="mobile-nav-link">关于我们</a></nav></nav></div>
+
+  <button class="scroll-top" id="scroll-top" aria-label="回到顶部" title="回到顶部"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg></button>
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="../js/main.js"></script><script src="../js/theme.js"></script><script src="../js/tools-data.js"></script><script src="../js/utils.js"></script><script src="../js/tools/qrcode-generator.js"></script>
+  <script>document.addEventListener('DOMContentLoaded',()=>{if(typeof initQrcodeGenerator==='function')initQrcodeGenerator();});</script>
+</body>
+</html>

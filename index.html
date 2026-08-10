@@ -3,169 +3,288 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI2091 · AI 前沿资讯与论文解读</title>
-  <meta name="description" content="AI2091 — 每日 AI 论文深度解读、行业资讯、工具推荐。站在 AI 前沿，看见 2091。">
-  <meta name="keywords" content="AI,人工智能,论文解读,大模型,机器学习,AI工具">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+  <title>工具箱 · 免费在线实用工具箱</title>
+  <meta name="description" content="免费在线实用工具箱，提供生活、文本、数字、开发、便民五大类查询工具。无广告、无后端、纯前端离线可用，极速加载，支持深色模式。">
+  <meta name="keywords" content="在线工具,免费工具,在线计算器,文本工具,开发工具,单位换算,日期计算,JSON格式化,Base64编码,二维码生成">
+  <meta name="author" content="工具箱">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://tool.example.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="工具箱 · 免费在线实用工具箱">
+  <meta property="og:description" content="免费在线实用工具箱，提供生活、文本、数字、开发、便民五大类查询工具。无广告、无后端、纯前端离线可用，极速加载，支持深色模式。">
+  <meta property="og:image" content="assets/images/og-image.svg">
+  <meta property="og:url" content="https://tool.example.com/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="工具箱 · 免费在线实用工具箱">
+  <meta name="twitter:description" content="免费在线实用工具箱，提供生活、文本、数字、开发、便民五大类查询工具。无广告、无后端、纯前端离线可用，极速加载，支持深色模式。">
+  <link rel="sitemap" href="/sitemap.xml">
+  <link rel="robots" href="/robots.txt">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.svg">
+  <link rel="manifest" href="/manifest.json">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: { 50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a' },
+            accent: { 50: '#f0fdfa', 100: '#ccfbf1', 200: '#99f6e4', 300: '#5eead4', 400: '#2dd4bf', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e', 800: '#115e59', 900: '#134e4a' },
+          },
+          fontFamily: { sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'] },
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased">
+  <a href="#main-content" class="skip-link">跳转到主内容</a>
 
-<nav class="navbar">
-  <div class="navbar-inner">
-    <a href="/" class="logo">AI2091 <span>· 前沿</span></a>
-    <ul class="nav-links">
-      <li><a href="/" class="active">首页</a></li>
-      <li><a href="/papers/">论文解读</a></li>
-      <li><a href="/tools/">AI 工具</a></li>
-      <li><a href="/news/">行业日报</a></li>
-    </ul>
-  </div>
-</nav>
+  <header class="header sticky top-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800" role="banner">
+    <div class="header-inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <a href="/" class="logo flex items-center gap-2" aria-label="工具箱首页">
+        <svg class="logo-icon w-8 h-8 text-primary-600 dark:text-primary-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="2"/>
+          <path d="M9 9h6v6H9z" fill="currentColor"/>
+          <path d="M15 15h-6v-6h6z" fill="currentColor"/>
+        </svg>
+        <span class="logo-text text-xl font-bold text-gray-900 dark:text-white">工具箱</span>
+      </a>
 
-<div class="container">
-  <!-- Hero -->
-  <section class="hero">
-    <div class="tagline">🚀 每日更新 · 深度解读</div>
-    <h1>站在 AI 前沿<br>看见 2091</h1>
-    <p>每日精选 AI 论文深度解读、行业动态追踪、实用工具推荐。<br>不搬运，只解读。给你值得花时间看的内容。</p>
-    <a href="/papers/" class="btn btn-primary">📄 最新论文解读</a>
-    <a href="/tools/" class="btn btn-outline">🛠️ AI 工具推荐</a>
-  </section>
+      <nav class="nav-main hidden md:flex items-center gap-1" role="navigation" aria-label="主导航">
+        <a href="/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" data-category="all">首页</a>
+        <a href="/tools.html?cat=life" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" data-category="life">生活查询</a>
+        <a href="/tools.html?cat=text" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" data-category="text">文本工具</a>
+        <a href="/tools.html?cat=math" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" data-category="math">数字计算</a>
+        <a href="/tools.html?cat=dev" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" data-category="dev">开发工具</a>
+        <a href="/tools.html?cat=utility" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" data-category="utility">便民工具</a>
+        <a href="/about.html" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">关于</a>
+      </nav>
 
-  <!-- 特色功能 -->
-  <section class="features">
-    <div class="feature-card">
-      <div class="icon">📄</div>
-      <h3>论文深度解读</h3>
-      <p>每天精选 1-3 篇高价值 AI 论文，中文深度解读核心方法、创新点与局限性</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">📰</div>
-      <h3>行业日报</h3>
-      <p>追踪 AI 领域最新动态：大模型发布、融资并购、技术突破、政策监管</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">🛠️</div>
-      <h3>AI 工具导航</h3>
-      <p>精选实用 AI 工具，含亲测评价和优惠链接，帮你提升工作效率</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">💡</div>
-      <h3>独立思考</h3>
-      <p>不搬运不翻译，每篇都包含原创分析和深度思考，给你不一样的视角</p>
-    </div>
-  </section>
-
-  <!-- 最新论文解读 -->
-  <section>
-    <div class="section-title">
-      📄 最新论文解读
-      <a href="/papers/" class="more">查看全部 →</a>
-    </div>
-    <div class="card-grid">
-      <div class="card">
-        <div class="tag">大模型 · 自我进化</div>
-        <h3><a href="/papers/skill-self-play.html">Skill Self-Play：让大模型自己跟自己玩，越玩越强</a></h3>
-        <p>阿里通义千问团队提出 Skill-SP 框架，让 LLM 通过技能博弈实现持续自我进化，解决了"任务多样性 vs 验证可靠性"的根本矛盾。</p>
-        <div class="meta">
-          <span>📅 2026-07-24</span>
-          <span>🏛️ 阿里 Qwen 团队</span>
+      <div class="header-actions flex items-center gap-3">
+        <div class="search-box hidden sm:block" role="search" aria-label="全站搜索">
+          <svg class="search-icon absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+            <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <input type="search" id="global-search" class="search-input w-64 pl-10 pr-4 py-2 text-sm bg-gray-100 dark:bg-gray-800 border-0 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="搜索工具..." autocomplete="off" aria-label="搜索工具">
+          <div class="search-results absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg overflow-hidden hidden" id="search-results" role="listbox" aria-label="搜索结果"></div>
         </div>
+
+        <button class="theme-toggle p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" id="theme-toggle" aria-label="切换深色/浅色模式" title="切换主题">
+          <svg class="icon-sun w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+            <g stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </g>
+          </svg>
+          <svg class="icon-moon hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </button>
+
+        <button class="mobile-menu-btn md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" id="mobile-menu-btn" aria-label="打开菜单" aria-expanded="false">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
       </div>
     </div>
-  </section>
+  </header>
 
-  <!-- 推荐 AI 工具 -->
-  <section style="margin-top: 48px;">
-    <div class="section-title">
-      🛠️ 推荐 AI 工具
-      <a href="/tools/" class="more">查看全部 →</a>
+  <main id="main-content" role="main">
+    <section class="hero relative py-16 sm:py-24 lg:py-32 overflow-hidden" aria-labelledby="hero-title">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="text-center max-w-3xl mx-auto">
+          <h1 id="hero-title" class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 dark:text-white mb-6">工具箱</h1>
+          <p class="hero-subtitle text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-4">免费、无广告、纯前端、离线可用的在线实用工具箱</p>
+          <p class="hero-desc text-lg text-gray-500 dark:text-gray-400 mb-8">五大分类 · 30+ 实用工具 · 纯前端离线可用 · 无广告无后端 · 极速加载</p>
+
+          <div class="hero-search max-w-xl mx-auto mb-8" role="search" aria-label="快速查找工具">
+            <svg class="search-icon-large absolute left-4 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <input type="search" id="hero-search" class="search-input-large w-full pl-12 pr-4 py-4 text-base bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="搜索工具：如日期计算、JSON格式化、Base64..." autocomplete="off" aria-label="搜索工具">
+            <kbd class="search-hint absolute right-4 top-1/2 -translate-y-1/2 text-xs text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"><kbd class="px-1.5 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">⌘</kbd>+<kbd class="px-1.5 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">K</kbd> 快速搜索</kbd>
+          </div>
+
+          <nav class="quick-categories flex flex-wrap justify-center gap-3" aria-label="快速分类">
+            <a href="/tools.html?cat=life" class="quick-cat flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:border-primary-300 dark:hover:border-primary-700 transition-colors" data-category="life">
+              <svg class="w-5 h-5 text-primary-600 dark:text-primary-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2h14a2 2 0 002-2z"/></svg>
+              <span>生活查询</span>
+            </a>
+            <a href="/tools.html?cat=text" class="quick-cat flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:border-primary-300 dark:hover:border-primary-700 transition-colors" data-category="text">
+              <svg class="w-5 h-5 text-accent-600 dark:text-accent-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+              <span>文本工具</span>
+            </a>
+            <a href="/tools.html?cat=math" class="quick-cat flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:border-primary-300 dark:hover:border-primary-700 transition-colors" data-category="math">
+              <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v18m-9-9h18"/></svg>
+              <span>数字计算</span>
+            </a>
+            <a href="/tools.html?cat=dev" class="quick-cat flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:border-primary-300 dark:hover:border-primary-700 transition-colors" data-category="dev">
+              <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><path d="M8 6H4a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V8"/></svg>
+              <span>开发工具</span>
+            </a>
+            <a href="/tools.html?cat=utility" class="quick-cat flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:border-primary-300 dark:hover:border-primary-700 transition-colors" data-category="utility">
+              <svg class="w-5 h-5 text-green-600 dark:text-green-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>
+              <span>便民工具</span>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured-tools py-16 sm:py-20 bg-white dark:bg-gray-950" aria-labelledby="featured-title">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header class="section-header flex items-center justify-between mb-8">
+          <h2 id="featured-title" class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">热门工具</h2>
+          <a href="/tools.html" class="view-all text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300">查看全部工具 →</a>
+        </header>
+        <div class="tools-grid featured-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="featured-tools" role="list"></div>
+      </div>
+    </section>
+
+    <section class="categories py-16 sm:py-20 bg-gray-50 dark:bg-gray-900" aria-labelledby="categories-title">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header class="section-header mb-8">
+          <h2 id="categories-title" class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">工具分类</h2>
+        </header>
+        <nav class="categories-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" aria-label="工具分类">
+          <a href="/tools.html?cat=life" class="category-card group p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-primary-300 dark:hover:border-primary-700 hover:shadow-lg transition-all duration-200" data-category="life">
+            <div class="w-12 h-12 bg-primary-50 dark:bg-primary-900/30 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6 text-primary-600 dark:text-primary-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><path d="M16 2v4M9 14H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            </div>
+            <span class="cat-name block text-lg font-semibold text-gray-900 dark:text-white mb-1">生活查询</span>
+            <span class="cat-count text-sm text-primary-600 dark:text-primary-400 font-medium mb-2">6 工具</span>
+            <span class="cat-desc text-sm text-gray-500 dark:text-gray-400">日期、农历、年龄、时区、节假日、星座</span>
+          </a>
+          <a href="/tools.html?cat=text" class="category-card group p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-primary-300 dark:hover:border-primary-700 hover:shadow-lg transition-all duration-200" data-category="text">
+            <div class="w-12 h-12 bg-accent-50 dark:bg-accent-900/30 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6 text-accent-600 dark:text-accent-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </div>
+            <span class="cat-name block text-lg font-semibold text-gray-900 dark:text-white mb-1">文本工具</span>
+            <span class="cat-count text-sm text-accent-600 dark:text-accent-400 font-medium mb-2">6 工具</span>
+            <span class="cat-desc text-sm text-gray-500 dark:text-gray-400">字数统计、大小写、JSON、Base64、MD5、编码</span>
+          </a>
+          <a href="/tools.html?cat=math" class="category-card group p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-primary-300 dark:hover:border-primary-700 hover:shadow-lg transition-all duration-200" data-category="math">
+            <div class="w-12 h-12 bg-amber-50 dark:bg-amber-900/30 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6 text-amber-600 dark:text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+            </div>
+            <span class="cat-name block text-lg font-semibold text-gray-900 dark:text-white mb-1">数字计算</span>
+            <span class="cat-count text-sm text-amber-600 dark:text-amber-400 font-medium mb-2">4 工具</span>
+            <span class="cat-desc text-sm text-gray-500 dark:text-gray-400">百分比、单位换算、房贷、汇率</span>
+          </a>
+          <a href="/tools.html?cat=dev" class="category-card group p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-primary-300 dark:hover:border-primary-700 hover:shadow-lg transition-all duration-200" data-category="dev">
+            <div class="w-12 h-12 bg-purple-50 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><path d="M8 6H4a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V8"/></svg>
+            </div>
+            <span class="cat-name block text-lg font-semibold text-gray-900 dark:text-white mb-1">开发工具</span>
+            <span class="cat-count text-sm text-purple-600 dark:text-purple-400 font-medium mb-2">7 工具</span>
+            <span class="cat-desc text-sm text-gray-500 dark:text-gray-400">时间戳、颜色、二维码、密码、正则、IP</span>
+          </a>
+          <a href="/tools.html?cat=utility" class="category-card group p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-primary-300 dark:hover:border-primary-700 hover:shadow-lg transition-all duration-200" data-category="utility">
+            <div class="w-12 h-12 bg-green-50 dark:bg-green-900/30 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6 text-green-600 dark:text-green-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>
+            </div>
+            <span class="cat-name block text-lg font-semibold text-gray-900 dark:text-white mb-1">便民工具</span>
+            <span class="cat-count text-sm text-green-600 dark:text-green-400 font-medium mb-2">5 工具</span>
+            <span class="cat-desc text-sm text-gray-500 dark:text-gray-400">IP查询、随机生成、图片尺寸、名字生成</span>
+          </a>
+        </nav>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800" role="contentinfo">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="footer-grid grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+        <div class="footer-brand md:col-span-1">
+          <a href="/" class="footer-logo flex items-center gap-2 mb-4" aria-label="工具箱首页">
+            <svg class="w-8 h-8 text-primary-600 dark:text-primary-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="2"/>
+              <path d="M9 9h6v6H9z" fill="currentColor"/><path d="M15 15h-6v-6h6z" fill="currentColor"/>
+            </svg>
+            <span class="footer-logo-text text-xl font-bold text-gray-900 dark:text-white">工具箱</span>
+          </a>
+          <p class="footer-tagline text-gray-500 dark:text-gray-400">免费、无广告、纯前端、离线可用的在线实用工具箱</p>
+        </div>
+        <nav class="footer-links" aria-label="页脚导航">
+          <div class="footer-col">
+            <h4 class="font-semibold text-gray-900 dark:text-white mb-3">工具分类</h4>
+            <ul class="space-y-2">
+              <li><a href="/tools.html?cat=life" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">生活查询</a></li>
+              <li><a href="/tools.html?cat=text" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">文本工具</a></li>
+              <li><a href="/tools.html?cat=math" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">数字计算</a></li>
+              <li><a href="/tools.html?cat=dev" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">开发工具</a></li>
+              <li><a href="/tools.html?cat=utility" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">便民工具</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="font-semibold text-gray-900 dark:text-white mb-3">页面</h4>
+            <ul class="space-y-2">
+              <li><a href="/" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">首页</a></li>
+              <li><a href="/tools.html" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">全部工具</a></li>
+              <li><a href="/about.html" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">关于我们</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="font-semibold text-gray-900 dark:text-white mb-3">关于</h4>
+            <ul class="space-y-2">
+              <li><a href="/about.html#about" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">关于我们</a></li>
+              <li><a href="/about.html#privacy" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">隐私政策</a></li>
+              <li><a href="/about.html#disclaimer" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">免责声明</a></li>
+              <li><a href="/about.html#contact" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">联系我们</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-bottom pt-8 border-t border-gray-200 dark:border-gray-800">
+        <p class="copyright text-sm text-gray-500 dark:text-gray-400 text-center mb-2">© 2025 <a href="/" class="hover:text-primary-600 dark:hover:text-primary-400">工具箱</a> · 站在 AI 前沿，看见 2091</p>
+        <p class="disclaimer text-xs text-gray-400 dark:text-gray-500 text-center">纯前端静态站点 · 无后端 · 无数据库 · 无追踪 · 无广告</p>
+      </div>
     </div>
-    <div class="tool-list">
-      <a href="https://chat.openai.com" target="_blank" rel="noopener" class="tool-item">
-        <div class="tool-icon" style="background: linear-gradient(135deg, #10a37f, #1a7f64);">💬</div>
-        <div class="tool-info">
-          <h3>ChatGPT</h3>
-          <p>OpenAI 旗舰对话模型，GPT-4o 支持多模态</p>
-        </div>
-        <span class="tool-link">使用 →</span>
-      </a>
-      <a href="https://claude.ai" target="_blank" rel="noopener" class="tool-item">
-        <div class="tool-icon" style="background: linear-gradient(135deg, #d97706, #b45309);">🧠</div>
-        <div class="tool-info">
-          <h3>Claude</h3>
-          <p>Anthropic 出品，长上下文推理能力出色</p>
-        </div>
-        <span class="tool-link">使用 →</span>
-      </a>
-      <a href="https://github.com/features/copilot" target="_blank" rel="noopener" class="tool-item">
-        <div class="tool-icon" style="background: linear-gradient(135deg, #6e40c9, #3b82f6);">⌨️</div>
-        <div class="tool-info">
-          <h3>GitHub Copilot</h3>
-          <p>AI 编程助手，支持 VS Code 等主流 IDE</p>
-        </div>
-        <span class="tool-link">使用 →</span>
-      </a>
-      <a href="https://www.perplexity.ai" target="_blank" rel="noopener" class="tool-item">
-        <div class="tool-icon" style="background: linear-gradient(135deg, #1e3a5f, #3b82f6);">🔍</div>
-        <div class="tool-info">
-          <h3>Perplexity</h3>
-          <p>AI 搜索引擎，实时联网 + 引用来源</p>
-        </div>
-        <span class="tool-link">使用 →</span>
-      </a>
-    </div>
-  </section>
-<!-- Agent Reach 实时采集 - 2026-08-09 12:33 -->
-<div class="reach-module">
-  <h2>🌐 社区热议 <span class="time">更新于 2026-08-09 12:33</span></h2>
-  <div class="reach-grid"><div class="reach-card"><h3>💬 V2EX 热门</h3><ul><li><a href="https://www.v2ex.com/t/1232899" target="_blank">说说为什么明明只用一把键盘,家里还有七把</a> <span class="meta">0回复</span></li><li><a href="https://www.v2ex.com/t/1232933" target="_blank">关于我转行矿工的两年后，谢谢大家的关心</a> <span class="meta">0回复</span></li><li><a href="https://www.v2ex.com/t/1232900" target="_blank">厄运专找苦命人，看中山大学 23 岁博士确诊胃癌晚期有感</a> <span class="meta">0回复</span></li><li><a href="https://www.v2ex.com/t/1232921" target="_blank">iphone18 来了，大家倾向于怎样换机</a> <span class="meta">0回复</span></li><li><a href="https://www.v2ex.com/t/1232883" target="_blank">分享一个 ublock origin 规则，屏蔽 x 上的黄色评论</a> <span class="meta">0回复</span></li><li><a href="https://www.v2ex.com/t/1232923" target="_blank">真的不建议任何人用中转 2</a> <span class="meta">0回复</span></li></ul></div><div class="reach-card"><h3>📺 B站推荐</h3><ul><li><a href="https://www.bilibili.com/video/BV1YYuN6tEWC" target="_blank">😨"后室里的乌鲁鲁"😰</a> <span class="tag">沙雕Sanscul</span> <span class="meta">1395866播放</span></li><li><a href="https://www.bilibili.com/video/BV1vtMy63E4G" target="_blank">王从天降</a> <span class="tag">正男锅</span> <span class="meta">1779257播放</span></li><li><a href="https://www.bilibili.com/video/BV1Unub69EpX" target="_blank">发烧梗</a> <span class="tag">鲤鱼Ace</span> <span class="meta">2650454播放</span></li><li><a href="https://www.bilibili.com/video/BV1dSuM6VERb" target="_blank">【独家】牧神记 第95集 皇帝“驾崩”</a> <span class="tag">哔哩哔哩国创</span> <span class="meta">475673播放</span></li><li><a href="https://www.bilibili.com/video/BV1gnub6REqy" target="_blank">怪兽中 出了一个奥特曼的卧底</a> <span class="tag">istupidpig</span> <span class="meta">5254553播放</span></li><li><a href="https://www.bilibili.com/video/BV1Bbun6jEaJ" target="_blank">在贵州按猪遇见羡慕的婚礼</a> <span class="tag">馒头泡泡饭</span> <span class="meta">1902489播放</span></li></ul></div></div></div><div class="reach-card full"><h3>📰 AI 行业动态</h3><div class="text-content">Title: AI News & Artificial Intelligence | TechCrunch
+  </footer>
 
-URL Source: http://techcrunch.com/category/artificial-intelligence/
+  <div class="mobile-nav fixed inset-0 z-50 hidden" id="mobile-nav" aria-hidden="true" role="dialog" aria-label="移动端导航">
+    <div class="mobile-nav-overlay absolute inset-0 bg-black/50" id="mobile-nav-overlay"></div>
+    <nav class="mobile-nav-panel absolute top-0 right-0 bottom-0 w-72 bg-white dark:bg-gray-950 shadow-xl" role="navigation" aria-label="移动端菜单">
+      <header class="mobile-nav-header flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
+        <a href="/" class="logo flex items-center gap-2"><svg class="w-8 h-8 text-primary-600 dark:text-primary-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="2"/><path d="M9 9h6v6H9z" fill="currentColor"/><path d="M15 15h-6v-6h6z" fill="currentColor"/></svg><span class="logo-text text-xl font-bold">工具箱</span></a>
+        <button class="mobile-nav-close p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" id="mobile-nav-close" aria-label="关闭菜单"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </header>
+      <nav class="mobile-nav-list p-4 space-y-1" aria-label="移动端菜单项">
+        <a href="/" class="mobile-nav-link block px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">首页</a>
+        <a href="/tools.html" class="mobile-nav-link block px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">全部工具</a>
+        <hr class="mobile-nav-divider border-gray-200 dark:border-gray-700">
+        <a href="/tools.html?cat=life" class="mobile-nav-link block px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">🏠 生活查询</a>
+        <a href="/tools.html?cat=text" class="mobile-nav-link block px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">文本工具</a>
+        <a href="/tools.html?cat=math" class="mobile-nav-link block px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">数字计算</a>
+        <a href="/tools.html?cat=dev" class="mobile-nav-link block px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">开发工具</a>
+        <a href="/tools.html?cat=utility" class="mobile-nav-link block px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">便民工具</a>
+        <hr class="mobile-nav-divider border-gray-200 dark:border-gray-700">
+        <a href="/about.html" class="mobile-nav-link block px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">关于我们</a>
+      </nav>
+    </nav>
+  </div>
 
-Published Time: Thu, 08 May 2025 23:15:48 GMT
+  <button class="scroll-top fixed bottom-6 right-6 w-12 h-12 bg-primary-600 text-white rounded-full shadow-lg opacity-0 invisible hover:bg-primary-700 transition-all duration-200" id="scroll-top" aria-label="回到顶部" title="回到顶部">
+    <svg class="w-6 h-6 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
 
-Markdown Content:
-[Skip to content](http://techcrunch.com/category/artificial-intelligence/#wp--skip-link--target)
+  <div class="toast-container fixed bottom-6 left-6 z-50 flex flex-col gap-2" id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
-[![Image 1](https://techcrunch.com/wp-content/uploads/2026/05/tc-lockup-hp.svg)TechCrunch Desktop Logo](https://techcrunch.com/)[![Image 2](https://techcrunch.com/wp-content/uploads/2024/09/tc-logo-mobile.svg)TechCrunch Mobile Logo](https://techcrunch.com/)
-
-*   [Latest](http://techcrunch.com/latest/)
-*   [Startups](http://techcrunch.com/category/startups/)
-*   [Venture](http://techcrunch.com/category/venture/)
-*   [Apple](http://techcrunch.com/tag/apple/)
-*   [Security](http://techcrunch.com/category/security/)
-*   [AI](http://techcrunch.com/category/artificial-intelligence/)
-*   [Apps](http://techcrunch.com/category/apps/)
-*   [Disrupt 2026](https://techcrunch.com/events/techcrunch-disrupt/)
-</div></div>
-<style>
-.reach-module { margin: 2rem 0; }
-.reach-module h2 { font-size: 1.5rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; }
-.reach-module .time { font-size: 0.8rem; color: #999; font-weight: normal; }
-.reach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1rem; }
-.reach-card { background: #f8f9fa; border-radius: 10px; padding: 1rem; border: 1px solid #eee; }
-.reach-card.full { grid-column: 1 / -1; }
-.reach-card h3 { margin: 0 0 0.5rem 0; font-size: 1rem; }
-.reach-card ul { list-style: none; padding: 0; margin: 0; }
-.reach-card li { padding: 0.4rem 0; border-bottom: 1px solid #eee; font-size: 0.9rem; }
-.reach-card li:last-child { border-bottom: none; }
-.reach-card a { color: #1a73e8; text-decoration: none; }
-.reach-card a:hover { text-decoration: underline; }
-.tag { display: inline-block; background: #e9ecef; padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.8rem; }
-.meta { color: #999; font-size: 0.8rem; margin-left: 0.3rem; }
-.text-content { font-size: 0.85rem; line-height: 1.5; color: #333; max-height: 300px; overflow-y: auto; }
-</style>
-
-
-</div>
-
-<footer class="footer">
-  <p>© 2026 <a href="https://www.ai2091.com">AI2091.com</a> · 站在 AI 前沿，看见 2091</p>
-  <p style="margin-top: 4px;">内容仅供学习参考，不构成任何投资建议</p>
-</footer>
-
-<script src="/js/stats.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/tools-data.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof renderFeaturedTools === 'function') renderFeaturedTools();
+      if (typeof initHeroSearch === 'function') initHeroSearch();
+    });
+  </script>
 </body>
 </html>

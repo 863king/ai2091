@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#0f172a"/>
+  <rect x="480" y="180" width="240" height="240" rx="30" fill="#2563eb"/>
+  <path d="M540 240h120v120H540z" fill="white"/>
+  <path d="M600 300h-60v-60h60z" fill="#2563eb"/>
+  <text x="600" y="480" font-family="system-ui, sans-serif" font-size="48" font-weight="bold" fill="white" text-anchor="middle">工具箱</text>
+  <text x="600" y="540" font-family="system-ui, sans-serif" font-size="24" fill="#94a3b8" text-anchor="middle">免费、无广告、纯前端、离线可用</text>
+</svg>

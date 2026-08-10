@@ -6,7 +6,7 @@
   <title>全部工具 · 工具箱</title>
   <meta name="description" content="工具箱 - 免费在线实用工具箱，提供生活、文本、数字、开发、便民五大类30+查询工具。无广告、无后端、纯前端离线可用。">
   <meta name="keywords" content="在线工具,免费工具,在线计算器,文本工具,开发工具,单位换算,日期计算,JSON格式化,Base64编码,二维码生成">
-  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="canonical" href="https://tool.example.com/tools.html">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -27,9 +27,6 @@
         <ul class="nav-list">
           <li><a href="/" class="nav-link">首页</a></li>
           <li><a href="/tools.html" class="nav-link active">全部工具</a></li>
-          <li><a href="/papers/" class="nav-link">论文解读</a></li>
-          <li><a href="/news/" class="nav-link">行业日报</a></li>
-          <li><a href="/diary/" class="nav-link">AI日记</a></li>
           <li><a href="/about.html" class="nav-link">关于</a></li>
         </ul>
       </nav>
@@ -67,10 +64,12 @@
   </header>
 
   <main id="main-content" role="main">
-    <section class="hero" aria-labelledby="hero-title">
+    <section class="tools-hero" aria-labelledby="tools-hero-title">
       <div class="container">
-        <h1 id="hero-title">全部工具</h1>
-        <p class="hero-subtitle">30+ 免费实用工具，纯前端离线可用，无广告无后端</p>
+        <header class="section-header">
+          <h1 id="tools-hero-title">全部工具</h1>
+          <p class="hero-subtitle">五大分类 · 30+ 实用工具 · 纯前端离线可用 · 无广告无后端</p>
+        </header>
         
         <div class="hero-search" role="search" aria-label="快速查找工具">
           <svg class="search-icon-large" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -80,49 +79,31 @@
           <input type="search" id="hero-search" class="search-input-large" placeholder="搜索工具：如日期计算、JSON格式化、Base64..." autocomplete="off" aria-label="搜索工具">
           <kbd class="search-hint"><kbd>⌘</kbd>+<kbd>K</kbd> 快速搜索</kbd>
         </div>
-        
-        <nav class="quick-categories" aria-label="快速分类">
-          <a href="/tools.html?cat=life" class="quick-cat" data-category="life">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2h14a2 2 0 002-2z"/></svg>
-            <span>生活查询</span>
-          </a>
-          <a href="/tools.html?cat=text" class="quick-cat" data-category="text">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-            <span>文本工具</span>
-          </a>
-          <a href="/tools.html?cat=math" class="quick-cat" data-category="math">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v18m-9-9h18"/></svg>
-            <span>数字计算</span>
-          </a>
-          <a href="/tools.html?cat=dev" class="quick-cat" data-category="dev">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><path d="M8 6H4a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V8"/></svg>
-            <span>开发工具</span>
-          </a>
-          <a href="/tools.html?cat=utility" class="quick-cat" data-category="utility">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>
-            <span>便民工具</span>
-          </a>
-        </nav>
       </div>
     </section>
 
-    <section class="tools-page" aria-labelledby="tools-title">
+    <section class="tools-filter" aria-labelledby="filter-title">
+      <div class="container">
+        <div class="filter-bar">
+          <div class="filter-tabs" role="tablist" aria-label="工具分类筛选">
+            <button class="filter-btn active" role="tab" data-category="all" aria-selected="true">全部工具</button>
+            <button class="filter-btn" role="tab" data-category="life" aria-selected="false">生活查询</button>
+            <button class="filter-btn" role="tab" data-category="text" aria-selected="false">文本工具</button>
+            <button class="filter-btn" role="tab" data-category="math" aria-selected="false">数字计算</button>
+            <button class="filter-btn" role="tab" data-category="dev" aria-selected="false">开发工具</button>
+            <button class="filter-btn" role="tab" data-category="utility" aria-selected="false">便民工具</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="all-tools" aria-labelledby="all-tools-title">
       <div class="container">
         <header class="section-header">
-          <h2 id="tools-title">所有工具</h2>
+          <h2 id="all-tools-title">工具列表</h2>
+          <div class="tools-stats" id="tools-stats"></div>
         </header>
-        
-        <div class="tools-filter" role="tablist" aria-label="工具分类筛选">
-          <button class="filter-btn active" data-category="all" role="tab" aria-selected="true">全部</button>
-          <button class="filter-btn" data-category="life" role="tab" aria-selected="false">生活查询</button>
-          <button class="filter-btn" data-category="text" role="tab" aria-selected="false">文本工具</button>
-          <button class="filter-btn" data-category="math" role="tab" aria-selected="false">数字计算</button>
-          <button class="filter-btn" data-category="dev" role="tab" aria-selected="false">开发工具</button>
-          <button class="filter-btn" data-category="utility" role="tab" aria-selected="false">便民工具</button>
-        </div>
-        
-        <div class="tools-grid-full" id="all-tools-grid" role="list">
-        </div>
+        <div class="tools-grid" id="all-tools-grid" role="list"></div>
       </div>
     </section>
   </main>
@@ -156,10 +137,7 @@
             <h4>页面</h4>
             <ul>
               <li><a href="/">首页</a></li>
-              <li><a href="/papers/">论文解读</a></li>
               <li><a href="/tools.html">全部工具</a></li>
-              <li><a href="/news/">行业日报</a></li>
-              <li><a href="/diary/">AI日记</a></li>
               <li><a href="/about.html">关于我们</a></li>
             </ul>
           </div>
@@ -176,7 +154,7 @@
       </div>
       <div class="footer-bottom">
         <p class="copyright">© 2025 <a href="/">工具箱</a> · 站在 AI 前沿，看见 2091</p>
-        <p class="disclaimer">内容仅供学习参考，不构成任何投资建议 · 纯前端静态站点 · 无后端 · 无数据库 · 无追踪</p>
+        <p class="disclaimer">纯前端静态站点 · 无后端 · 无数据库 · 无追踪 · 无广告</p>
       </div>
     </div>
   </footer>
@@ -200,10 +178,6 @@
         <a href="/tools.html?cat=dev" class="mobile-nav-link">开发工具</a>
         <a href="/tools.html?cat=utility" class="mobile-nav-link">便民工具</a>
         <hr class="mobile-nav-divider">
-        <a href="/papers/" class="mobile-nav-link">📄 论文解读</a>
-        <a href="/news/" class="mobile-nav-link">行业日报</a>
-        <a href="/diary/" class="mobile-nav-link">AI日记</a>
-        <a href="/tools.html" class="mobile-nav-link">全部工具</a>
         <a href="/about.html" class="mobile-nav-link">关于我们</a>
       </nav>
     </nav>
@@ -222,7 +196,6 @@
   <script src="js/tools-filter.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      if (typeof renderAllTools === 'function') renderAllTools();
       if (typeof initToolsFilter === 'function') initToolsFilter();
     });
   </script>

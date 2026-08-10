@@ -1,14 +1,14 @@
-# AI2091.com - robots.txt
+# robots.txt for 工具箱
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://www.ai2091.com/sitemap.xml
+# 站点地图
+Sitemap: https://tool.example.com/sitemap.xml
 
-# 禁止抓取的路径
-Disallow: /css/
-Disallow: /images/
-Disallow: /404.html
-
-# 爬虫延迟（秒）
+# 爬虫延迟
 Crawl-delay: 10
+
+# 禁止访问的目录（静态资源已允许）
+Disallow: /js/
+Disallow: /css/
+Disallow: /assets/
